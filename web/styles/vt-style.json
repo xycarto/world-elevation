@@ -1,0 +1,72 @@
+{
+    "version": 8,
+    "name": "world-styles",
+    "metadata": {
+      "mapbox:autocomposite": true
+    },
+    "glyphs": "https://orangemug.github.io/font-glyphs/glyphs/{fontstack}/{range}.pbf",
+    "sources": {
+      "world_styles": {
+        "type": "vector",
+        "tiles": ["http://127.0.0.1:8080/vector-tiles/countries/{z}/{x}/{y}.pbf"],
+        "minzoom": 0,
+        "maxzoom": 7
+      },
+      "place-points-country": {
+        "type": "vector",
+        "tiles": ["http://127.0.0.1:8080/vector-tiles/place-points/{z}/{x}/{y}.pbf"],
+        "minzoom": 0,
+        "maxzoom": 7
+      }
+    },
+    "layers": [
+      {
+        "id": "background",
+        "type": "background",
+        "paint": {
+          "background-color": "rgba(0,0,0,0)"
+        }
+      },
+      {
+        "id": "outline",
+        "type": "fill",
+        "source": "world_styles",
+        "source-layer": "world-country-boundaries-3857",
+        "maxzoom": 7,
+        "layout": {
+          "visibility": "visible"
+        },
+        "paint": {
+          "fill-color": "rgba(0,0,0,0)",
+          "fill-outline-color": "#ffffff"
+        }
+      },
+      {
+          "id": "label",
+          "type": "symbol",
+          "source": "place-points-country",
+          "source-layer": "countries",
+          "maxzoom": 7,
+          "layout": {
+            "text-field": ["get", "COUNTRY"],
+            "text-anchor": "center",
+            "text-size": {
+              "stops": [
+                [0,0],
+                [7,24]
+              ]
+            },
+            "text-font": ["Arial Normal", "sans-serif Italic"],
+            "text-ignore-placement": false,
+            "text-optional": true,
+            "text-allow-overlap": false,
+            "icon-allow-overlap": false
+          },
+          "paint": {
+            "text-color": "#ffffff",
+            "text-halo-width": 2,
+            "text-halo-color": "#3a4348"
+          }
+      }
+    ]
+  }
